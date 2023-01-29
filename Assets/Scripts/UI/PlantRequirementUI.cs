@@ -46,9 +46,9 @@ public class PlantRequirementUI : MonoBehaviour
             switch (data.growthPattern[0])
             {
                 case Direction.DOWN: deg = 180; text = pathTextRight; break;
-                case Direction.RIGHT: deg = 90; text = pathTextTop; break;
+                case Direction.RIGHT: deg = 270; text = pathTextTop; break;
                 case Direction.UP: deg = 0; text = pathTextRight; break;
-                case Direction.LEFT: deg = 270; text = pathTextTop; break;
+                case Direction.LEFT: deg = 90; text = pathTextTop; break;
             }
             pathImage.rectTransform.Rotate(new Vector3(0, 0, deg));
             text.text = string.Format("{0}", data.isInfinite ? "∞" : data.growthNumber);

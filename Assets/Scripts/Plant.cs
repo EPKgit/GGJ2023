@@ -37,7 +37,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             return false;
         }
 
-        if(roots.Count >= plantData.growthPattern.Length)
+        if(roots.Count >= plantData.growthPattern.Length && !plantData.isInfinite)
         {
             return false;
         }
@@ -58,7 +58,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     
     private void Grow()
     {
-        Direction growDirection = plantData.growthPattern[roots.Count];
+        Direction growDirection = plantData.growthPattern[plantData.isInfinite ? 0 : roots.Count];
         Vector2 growFrom = (roots.Count > 0 ? roots[roots.Count - 1].GetComponent<Root>().gridPosition : gridPosition);
         Vector2 growTo = growFrom + GridManager.DIRECTION_TO_OFFSET[growDirection];
 
@@ -69,26 +69,36 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             return;
         }
 
-        // Create root at tile
-        var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.identity);
-        GridManager.instance.SetOccupied(growTo, true);
-
         Tile resourceTile = GridManager.instance.GetTile(growTo);
         if (resourceTile.isBlue)
         {
+            if (plantData.cantHaveBlue)
+            {
+                Kill();
+                return;
+            }
             plantData.requiredBlue--;
         }
         if (resourceTile.isRed)
         {
+            if (plantData.cantHaveRed)
+            {
+                Kill();
+                return;
+            }
             plantData.requiredRed--;
         }
+
+        // Create root at tile
+        var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.identity);
+        GridManager.instance.SetOccupied(growTo, true);
 
         var rootComp = root.GetComponent<Root>();
         rootComp.gridPosition = growTo;
 
         if(roots.Count > 0)
         {
-            roots[roots.Count - 1].GetComponent<Root>().SetConnection(plantData.growthPattern[roots.Count - 1], plantData.growthPattern[roots.Count]);
+            roots[roots.Count - 1].GetComponent<Root>().SetConnection(plantData.growthPattern[plantData.isInfinite ? 0 : roots.Count - 1], plantData.growthPattern[plantData.isInfinite ? 0 : roots.Count]);
         }
 
         Direction nextDirection = growDirection;
@@ -101,7 +111,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
         roots.Add(rootComp);
 
-        if(roots.Count >= plantData.growthPattern.Length)
+        if(roots.Count >= plantData.growthPattern.Length && !plantData.isInfinite)
         {
             CheckCompletion();
         }
@@ -175,10 +185,20 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                     Tile resourceTile = GridManager.instance.GetTile(t.gridPosition);
                     if (resourceTile.isBlue)
                     {
+                        if (plantData.cantHaveBlue)
+                        {
+                            Kill();
+                            return;
+                        }
                         plantData.requiredBlue--;
                     }
                     if (resourceTile.isRed)
                     {
+                        if (plantData.cantHaveRed)
+                        {
+                            Kill();
+                            return;
+                        }
                         plantData.requiredRed--;
                     }
                     Instantiate(dirtPlantingVFXPrefab, transform.position, Quaternion.identity, transform);
