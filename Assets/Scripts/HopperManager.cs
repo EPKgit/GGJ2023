@@ -20,15 +20,20 @@ public class HopperManager : MonoSingleton<HopperManager>
     {
         for (int x = spawnedObjects.Count - 1; x >= 0; --x)
         {
-            if(p.gameObject != spawnedObjects[x])
+            if(p.gameObject == spawnedObjects[x])
             {
-                Destroy(spawnedObjects[x]);
+                spawnedObjects.Remove(p.gameObject);
+                return;
             }
         }
-        spawnedObjects.Clear();
     }
     public void Step()
     {
+        for (int x = spawnedObjects.Count - 1; x >= 0; --x)
+        {
+            Destroy(spawnedObjects[x]);
+        }
+        spawnedObjects.Clear();
         foreach (Transform t in spawnPoints)
         {
             Plant p = Instantiate(plantPrefab, t.transform.position, Quaternion.identity).GetComponent<Plant>();
