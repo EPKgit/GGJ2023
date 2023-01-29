@@ -11,15 +11,16 @@ public enum GrowthState
     DEAD,
     COMPLETED,
 }
-public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public GameObject dirtDrippingVFXPrefab;
     public GameObject dirtPlantingVFXPrefab;
+    public GameObject harvestableVFXPrefab;
     public Sprite deadPlantSprite;
     public GrowthState growthState = GrowthState.INVALID;
     public PlantData plantData;
     public List<Root> roots = new List<Root>();
-    public Vector2 gridPosition;
+    public Vector2 gridPosition = new Vector2(-1, -1);
 
     public GameObject rootPrefab;
 
@@ -122,8 +123,8 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         if(plantData.requiredBlue <= 0 && plantData.requiredRed <= 0)
         {
             GetComponent<SpriteRenderer>().color = Color.green;
-            ScoreManager.instance.Score += plantData.scoreComplete;
             growthState = GrowthState.COMPLETED;
+            harvestableVFXPrefab = Instantiate(harvestableVFXPrefab, transform.position, Quaternion.identity);
         }
         else
         {
@@ -139,18 +140,34 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         }
 
         growthState = GrowthState.DEAD;
-        foreach(Root r in roots)
-        {
-            GridManager.instance.SetOccupied(r.gridPosition, false);
-            Destroy(r.gameObject);
-        }
+        CleanupRoots();
         GetComponent<SpriteRenderer>().color = Color.white;
         GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
     }
 
+    void CleanupRoots()
+    {
+        foreach (Root r in roots)
+        {
+            GridManager.instance.SetOccupied(r.gridPosition, false);
+            Destroy(r.gameObject);
+        }
+    }
 
-#region DRAGGING
-    public static Plant currentDraggingPlant = null;
+
+#region MOUSE_EVENTS
+
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        if (growthState == GrowthState.COMPLETED)
+        {
+            ScoreManager.instance.Score += plantData.scoreComplete;
+            CleanupRoots();
+            GridManager.instance.SetOccupied(gridPosition, false);
+            harvestableVFXPrefab.GetComponent<VFXController>().StopParticlePlaying();
+            Destroy(gameObject);
+        }
+    }
     private Vector3 startPosition;
 
     public void OnBeginDrag(PointerEventData data)
@@ -187,6 +204,10 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                 if (!GridManager.instance.IsOccupied(t.gridPosition))
                 {
                     found = true;
+                    if(gridPosition.x >= 0 && gridPosition.y >= 0)//if we previously had a position and are moving (we are a rock) free up our old spot
+                    {
+                        GridManager.instance.SetOccupied(gridPosition, false);
+                    }
                     PlantManager.instance.PlantSeed(this, t.gridPosition);
                     Tile resourceTile = GridManager.instance.GetTile(t.gridPosition);
                     if (resourceTile.isBlue)

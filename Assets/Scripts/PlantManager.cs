@@ -15,10 +15,13 @@ public class PlantManager : MonoSingleton<PlantManager>
 
     public void PlantSeed(Plant plant, Vector2 gridPosition)
     {
-        plants.Add(plant);
         plant.transform.position = GridManager.instance.GetPositionOnGrid(gridPosition);
         GridManager.instance.SetOccupied(gridPosition, true);
-        plant.growthState = GrowthState.GROWING;
+        if(!plant.plantData.isRock)
+        {
+            plants.Add(plant);
+            plant.growthState = GrowthState.GROWING;
+        }
         plant.gridPosition = gridPosition;
         HopperManager.instance.TakePlant(plant);
         TurnManager.instance.ActionTaken();
@@ -34,6 +37,10 @@ public class PlantManager : MonoSingleton<PlantManager>
         for(int x = plants.Count - 1; x >= 0; --x)
         {
             Plant p = plants[x];
+            if(p.plantData.isRock)
+            {
+                continue;
+            }
             var result = p.TryGrow();
             switch (result)
             {
