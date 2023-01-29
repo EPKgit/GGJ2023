@@ -19,8 +19,10 @@ public class GridManager : MonoSingleton<GridManager>
         { Direction.DOWN,   new Vector2(0, -1) },
         { Direction.LEFT,   new Vector2(-1, 0) },
     };
-    const int width = 10;
-    const int height = 10;
+    int width = 15;
+    int height = 10;
+
+    public Texture2D mapImage;
 
     public GameObject tilePrefab;
 
@@ -34,7 +36,17 @@ public class GridManager : MonoSingleton<GridManager>
         Generate();
     }
 
-    public void Generate()
+    void Generate()
+    {
+        if(mapImage == null)
+        {
+            GenerateRandom();
+            return;
+        }
+        GenerateFromImage();
+    }
+
+    void GenerateRandom()
     {
         GameObject g = new GameObject("TileParent");
         for (int x = 0; x < width; ++x)
@@ -55,6 +67,37 @@ public class GridManager : MonoSingleton<GridManager>
                 {
                     t.isRed = true;
                     t.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+            }
+        }
+    }
+
+    void GenerateFromImage()
+    {
+        GameObject g = new GameObject("TileParent");
+        width = mapImage.width;
+        height = mapImage.height;
+        for (int x = 0; x < width; ++x)
+        {
+            for (int y = 0; y < height; ++y)
+            {
+                GameObject temp = Instantiate(tilePrefab, GetPositionOnGrid(x, y), Quaternion.identity, g.transform);
+                Tile t = temp.GetComponent<Tile>();
+                t.gridPosition = new Vector2(x, y);
+                tiles[x, y] = t;
+                var pixel = mapImage.GetPixel(x, y);
+                if (pixel.a == 1.0)
+                {
+                    if (pixel.r == 1.0)
+                    {
+                        t.isRed = true;
+                        t.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                    else if (pixel.b == 1.0)
+                    {
+                        t.isBlue = true;
+                        t.GetComponent<SpriteRenderer>().color = Color.blue;
+                    }
                 }
             }
         }
