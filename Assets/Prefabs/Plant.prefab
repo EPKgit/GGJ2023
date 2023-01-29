@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2613756b5d187b847996956fe9ca0a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirtDrippingVFXPrefab: {fileID: 577691755882806089, guid: 77457e976043913458c370982f3951be, type: 3}
   growthState: 0
   isRock: 0
   plantData: {fileID: 0}

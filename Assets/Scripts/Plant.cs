@@ -13,6 +13,7 @@ public enum GrowthState
 }
 public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public GameObject dirtDrippingVFXPrefab;
     public GrowthState growthState = GrowthState.INVALID;
     public bool isRock;
     public PlantData plantData;
@@ -74,6 +75,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         if (growthState == GrowthState.UNPLANTED || growthState == GrowthState.INVALID) //we can only move unplanted plants
         {
             startPosition = this.transform.position;
+            Instantiate(dirtDrippingVFXPrefab, transform.position, Quaternion.identity, transform);
             return;
         }
         data.pointerDrag = null;
@@ -87,6 +89,14 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void OnEndDrag(PointerEventData data)
     {
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<ParticleSystem>())
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
         Collider2D[] hits;
         hits = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), ~LayerMask.NameToLayer("Tiles"));
         bool found = false;
