@@ -23,15 +23,20 @@ public class Root : MonoBehaviour
             spriteComp.sprite = (ending ? AngleEnd : Angle);
 
             int deltaDir = ((int)outDir - (int)inDir + 4) % 4;
+            if(deltaDir > 2)
+            {
+                deltaDir -= 4;
+            }
+
             spriteComp.flipX = (deltaDir > 0);
         }
 
         switch(inDir)
         {
             case Direction.DOWN:  transform.rotation = Quaternion.Euler(0, 0,   0); break;
-            case Direction.RIGHT:  transform.rotation = Quaternion.Euler(0, 0,  90); break;
+            case Direction.RIGHT: transform.rotation = Quaternion.Euler(0, 0,  90); break;
             case Direction.UP:    transform.rotation = Quaternion.Euler(0, 0, 180); break;
-            case Direction.LEFT: transform.rotation = Quaternion.Euler(0, 0, 270); break;
+            case Direction.LEFT:  transform.rotation = Quaternion.Euler(0, 0, 270); break;
         }
     }
 
