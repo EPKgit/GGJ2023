@@ -12,11 +12,10 @@ public enum Direction
 
 public class GridManager : MonoSingleton<GridManager>
 {
-    const int width = 20;
+    const int width = 10;
     const int height = 10;
 
     public GameObject tilePrefab;
-    public GameObject plantPrefab;
 
     public Tile[,] tiles;
     public Plant[,] plants;

@@ -17,8 +17,9 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public bool isRock;
     public PlantData plantData;
     public List<GameObject> roots = new List<GameObject>();
+    public Vector2 gridPosition;
 
-    private void SetPlantData(PlantData d)
+    public void SetPlantData(PlantData d)
     {
         plantData = d;
         GetComponent<SpriteRenderer>().sprite = d.sprite;
@@ -97,7 +98,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                 if (!GridManager.instance.IsOccupied(t.gridPosition))
                 {
                     found = true;
-                    PlantManager.instance.AddPlant(this, t.gridPosition);
+                    PlantManager.instance.PlantSeed(this, t.gridPosition);
                 }
                 break;
             }

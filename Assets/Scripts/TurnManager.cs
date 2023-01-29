@@ -14,7 +14,7 @@ public class TurnManager : MonoSingleton<TurnManager>
         if(actionsTakenInTurn >= ACTIONS_PER_TURN)
         {
             PlantManager.instance.Step();
-            Hopper.instance.Step();
+            HopperManager.instance.Step();
         }
     }
 }

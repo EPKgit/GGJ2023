@@ -7,12 +7,19 @@ public class PlantManager : MonoSingleton<PlantManager>
     public PlantData[] possiblePlants;
     private List<Plant> plants = new List<Plant>();
 
-    public void AddPlant(Plant plant, Vector2 gridPosition)
+    public PlantData GetRandomPlantData()
+    {
+        int rand = Random.Range(0, possiblePlants.Length);
+        return ScriptableObject.Instantiate(possiblePlants[rand]);
+    }
+
+    public void PlantSeed(Plant plant, Vector2 gridPosition)
     {
         plants.Add(plant);
         GridManager.instance.SetPlant(plant, gridPosition);
         plant.transform.position = GridManager.instance.GetPositionOnGrid(gridPosition);
         plant.growthState = GrowthState.GROWING;
+        HopperManager.instance.TakePlant(plant);
         TurnManager.instance.ActionTaken();
     }
 
