@@ -5,14 +5,17 @@ using UnityEngine;
 public class HopperManager : MonoSingleton<HopperManager>
 {
     public GameObject plantPrefab;
+    public GameObject plantUIPrefab;
+
+    public Canvas UICanvas;
 
     public Transform[] spawnPoints;
 
-    private List<GameObject> spawnedObjects;
+    private List<(GameObject, GameObject)> spawnedObjects;
 
     protected override void OnCreation()
     {
-        spawnedObjects = new List<GameObject>();
+        spawnedObjects = new List<(GameObject, GameObject)>();
         Step();
     }
 
@@ -20,9 +23,10 @@ public class HopperManager : MonoSingleton<HopperManager>
     {
         for (int x = spawnedObjects.Count - 1; x >= 0; --x)
         {
-            if(p.gameObject == spawnedObjects[x])
+            if(p.gameObject == spawnedObjects[x].Item1)
             {
-                spawnedObjects.Remove(p.gameObject);
+                Destroy(spawnedObjects[x].Item2);
+                spawnedObjects.RemoveAt(x);
                 return;
             }
         }
@@ -31,14 +35,17 @@ public class HopperManager : MonoSingleton<HopperManager>
     {
         for (int x = spawnedObjects.Count - 1; x >= 0; --x)
         {
-            Destroy(spawnedObjects[x]);
+            Destroy(spawnedObjects[x].Item1);
+            Destroy(spawnedObjects[x].Item2);
         }
         spawnedObjects.Clear();
         foreach (Transform t in spawnPoints)
         {
             Plant p = Instantiate(plantPrefab, t.transform.position, Quaternion.identity).GetComponent<Plant>();
             p.SetPlantData(PlantManager.instance.GetRandomPlantData());
-            spawnedObjects.Add(p.gameObject);
+            PlantRequirementUI ui = Instantiate(plantUIPrefab, t.transform.position, Quaternion.identity, UICanvas.transform).GetComponent<PlantRequirementUI>();
+            ui.Setup(p);
+            spawnedObjects.Add((p.gameObject, ui.gameObject));
         }
     }
 }

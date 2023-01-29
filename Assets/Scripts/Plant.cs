@@ -19,7 +19,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public GrowthState growthState = GrowthState.INVALID;
     public bool isRock;
     public PlantData plantData;
-    public List<GameObject> roots = new List<GameObject>();
+    public List<Root> roots = new List<Root>();
     public Vector2 gridPosition;
 
     public GameObject rootPrefab;
@@ -75,8 +75,14 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         GridManager.instance.SetOccupied(growTo, true);
 
         Tile resourceTile = GridManager.instance.GetTile(growTo);
-        if(resourceTile.isBlue) plantData.requiredBlue--;
-        if(resourceTile.isRed) plantData.requiredRed--;
+        if (resourceTile.isBlue)
+        {
+            plantData.requiredBlue--;
+        }
+        if (resourceTile.isRed)
+        {
+            plantData.requiredRed--;
+        }
 
         var rootComp = root.GetComponent<Root>();
         rootComp.gridPosition = growTo;
@@ -94,7 +100,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
         rootComp.SetEnding(growDirection, nextDirection);
 
-        roots.Add(root);
+        roots.Add(rootComp);
 
         if(roots.Count >= plantData.growthPattern.Length)
         {
@@ -118,9 +124,10 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public void Kill()
     {
         growthState = GrowthState.DEAD;
-        foreach(GameObject g in roots)
+        foreach(Root r in roots)
         {
-            Destroy(g);
+            GridManager.instance.SetOccupied(r.gridPosition, false);
+            Destroy(r.gameObject);
         }
         GetComponent<SpriteRenderer>().color = Color.white;
         GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
@@ -166,6 +173,15 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                 {
                     found = true;
                     PlantManager.instance.PlantSeed(this, t.gridPosition);
+                    Tile resourceTile = GridManager.instance.GetTile(t.gridPosition);
+                    if (resourceTile.isBlue)
+                    {
+                        plantData.requiredBlue--;
+                    }
+                    if (resourceTile.isRed)
+                    {
+                        plantData.requiredRed--;
+                    }
                     Instantiate(dirtPlantingVFXPrefab, transform.position, Quaternion.identity, transform);
                 }
                 break;
