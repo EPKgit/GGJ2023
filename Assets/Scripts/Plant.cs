@@ -20,6 +20,8 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public List<GameObject> roots = new List<GameObject>();
     public Vector2 gridPosition;
 
+    public GameObject rootPrefab;
+
     public void SetPlantData(PlantData d)
     {
         plantData = d;
@@ -33,6 +35,12 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             return false;
         }
+
+        if(roots.Count >= plantData.growthPattern.Length)
+        {
+            return false;
+        }
+        
         // do some adjacency check for the roots
         return true;
     }
@@ -47,13 +55,51 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         Grow();
         return growthState;
     }
+    
     private void Grow()
     {
         //spawn a root based on our current plant data growth list
         //check if we're blocked
         //check if we've picked up a requirement and mark that in the growth data
         //check if we're out of growth states
-        growthState = GrowthState.COMPLETED;
+
+        Direction growDirection = plantData.growthPattern[roots.Count];
+        Vector2 growFrom = (roots.Count > 0 ? roots[roots.Count - 1].GetComponent<Root>().gridPosition : gridPosition);
+        Vector2 growTo = growFrom + GridManager.DIRECTION_TO_OFFSET[growDirection];
+
+        var Grid = GridManager.instance;
+        if(!Grid.IsValid(growTo) || Grid.IsOccupied(growTo))
+        {
+            Debug.Log("Can't grow, ded");
+            Kill();
+            return;
+        }
+
+        // Create root at tile
+        var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.Euler(0,0,0));
+        var rootComp = root.GetComponent<Root>();
+        rootComp.gridPosition = growTo;
+
+        if(roots.Count > 0)
+        {
+            roots[roots.Count - 1].GetComponent<Root>().SetConnection(plantData.growthPattern[roots.Count - 1], plantData.growthPattern[roots.Count]);
+        }
+
+        Direction nextDirection = growDirection;
+        if(plantData.growthPattern.Length > roots.Count + 1)
+        {
+            nextDirection = plantData.growthPattern[roots.Count + 1];
+        }
+
+        rootComp.SetEnding(growDirection, nextDirection);
+
+        roots.Add(root);
+
+        if(roots.Count >= plantData.growthPattern.Length)
+        {
+            Debug.Log("Done growing");
+            growthState = GrowthState.COMPLETED;
+        }
     }
 
     public void Kill()

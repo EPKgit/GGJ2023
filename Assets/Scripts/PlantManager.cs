@@ -16,9 +16,9 @@ public class PlantManager : MonoSingleton<PlantManager>
     public void PlantSeed(Plant plant, Vector2 gridPosition)
     {
         plants.Add(plant);
-        GridManager.instance.SetPlant(plant, gridPosition);
         plant.transform.position = GridManager.instance.GetPositionOnGrid(gridPosition);
         plant.growthState = GrowthState.GROWING;
+        plant.gridPosition = gridPosition;
         HopperManager.instance.TakePlant(plant);
         TurnManager.instance.ActionTaken();
     }

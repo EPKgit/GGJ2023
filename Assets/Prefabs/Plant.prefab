@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1759301273
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f71c94615f05d8444955f99b3e88adeb, type: 3}
   m_Color: {r: 0.051886797, g: 1, b: 0.25245425, a: 1}
@@ -130,3 +130,4 @@ MonoBehaviour:
   plantData: {fileID: 0}
   roots: []
   gridPosition: {x: 0, y: 0}
+  rootPrefab: {fileID: 3808191431462099888, guid: 6d3f38fe58e9fc14a92595f09bcfedd2, type: 3}

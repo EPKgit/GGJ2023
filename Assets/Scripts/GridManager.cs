@@ -12,7 +12,7 @@ public enum Direction
 
 public class GridManager : MonoSingleton<GridManager>
 {
-    public Dictionary<Direction, Vector2> DIRECTION_TO_OFFSET = new Dictionary<Direction, Vector2>()
+    public static Dictionary<Direction, Vector2> DIRECTION_TO_OFFSET = new Dictionary<Direction, Vector2>()
     {
         { Direction.UP,     new Vector2(0, 1) },
         { Direction.RIGHT,  new Vector2(1, 0) },
@@ -27,11 +27,9 @@ public class GridManager : MonoSingleton<GridManager>
     public GameObject tilePrefab;
 
     public Tile[,] tiles;
-    public Plant[,] plants;
 
     protected override void OnCreation()
     {
-        plants = new Plant[width, height];
         tiles = new Tile[width, height];
         Generate();
     }
@@ -117,7 +115,7 @@ public class GridManager : MonoSingleton<GridManager>
     {
         if(x >= 0 && x < width && y >= 0 && y < height)
         {
-            return plants[x,y] != null;
+            return tiles[x,y].isOccupied;
         }
         throw new System.Exception();
     }
@@ -127,13 +125,13 @@ public class GridManager : MonoSingleton<GridManager>
         return IsOccupied((int)v.x, (int)v.y);
     }
 
-    public void SetPlant(Plant p, int x, int y)
+    public bool IsValid(int x, int y)
     {
-        plants[x, y] = p;
+        return (x >= 0 && x < width && y >= 0 && y < height);
     }
 
-    public void SetPlant(Plant p, Vector2 v)
+    public bool IsValid(Vector2 v)
     {
-        SetPlant(p, (int)v.x, (int)v.y);
+        return IsValid((int)v.x, (int)v.y);
     }
 }
