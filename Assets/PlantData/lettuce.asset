@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
   m_Name: lettuce
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: d0f22d4149ae4e644a7ba1e58e69da4c, type: 3}
+  sprite: {fileID: 21300000, guid: fc6e197a5f8a799468dc21009a286164, type: 3}
   growthPattern: 0000000000000000000000000000000000000000
-  requiredRed: 0
-  requiredBlue: 3
+  requiredRed: 1
+  requiredBlue: 2

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
   m_Name: arugula
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  growthPattern: 
+  sprite: {fileID: 21300000, guid: 7adc9ba8194a10847a7708720bf09192, type: 3}
+  growthPattern: 0300000003000000030000000300000003000000
   requiredRed: 0
   requiredBlue: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
   m_Name: broccoli
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  growthPattern: 
+  sprite: {fileID: 21300000, guid: 49eb0a97de2fadd4ea6f902c6d4b3b75, type: 3}
+  growthPattern: 00000000010000000000000001000000
   requiredRed: 0
-  requiredBlue: 0
+  requiredBlue: 3
