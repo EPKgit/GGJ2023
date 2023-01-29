@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum GrowthState
 {
-    DEAD,
+    INVALID,
+    UNPLANTED,
     GROWING,
+    DEAD,
     COMPLETED,
 }
-public class Plant : MonoBehaviour
+public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public GrowthState growthState;
+    public GrowthState growthState = GrowthState.INVALID;
     public bool isRock;
     public PlantData plantData;
     public List<GameObject> roots = new List<GameObject>();
 
-    private void Awake()
+    private void SetPlantData(PlantData d)
     {
-        growthState = GrowthState.GROWING;
+        plantData = d;
+        GetComponent<SpriteRenderer>().sprite = d.sprite;
+        growthState = GrowthState.UNPLANTED;
     }
 
     public bool CanGrow()
@@ -56,5 +61,52 @@ public class Plant : MonoBehaviour
         {
             Destroy(g);
         }
+        Destroy(g);
     }
+
+
+#region DRAGGING
+    public static Plant currentDraggingPlant = null;
+    private Vector3 startPosition;
+
+    public void OnBeginDrag(PointerEventData data)
+    {
+        if (growthState == GrowthState.UNPLANTED || growthState == GrowthState.INVALID) //we can only move unplanted plants
+        {
+            startPosition = this.transform.position;
+            return;
+        }
+        data.pointerDrag = null;
+    }
+
+    public void OnDrag(PointerEventData data)
+    {
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        this.transform.position = new Vector3(pos.x, pos.y, 0);
+    }
+
+    public void OnEndDrag(PointerEventData data)
+    {
+        Collider2D[] hits;
+        hits = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), ~LayerMask.NameToLayer("Tiles"));
+        bool found = false;
+        foreach(Collider2D hit in hits)
+        {
+            Tile t = hit.transform.GetComponent<Tile>();
+            if(t != null)
+            {
+                if (!GridManager.instance.IsOccupied(t.gridPosition))
+                {
+                    found = true;
+                    PlantManager.instance.AddPlant(this, t.gridPosition);
+                }
+                break;
+            }
+        }
+        if (!found)
+        {
+            this.transform.position = startPosition;
+        }
+    }
+#endregion
 }

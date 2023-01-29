@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Tiles
   - 
   - 
   - 
@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Tiles
+    uniqueID: 4118470631
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Plants
+    uniqueID: 2535666023
     locked: 0

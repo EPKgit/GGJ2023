@@ -6,4 +6,5 @@ public class Tile : MonoBehaviour
 {
     public bool isRed;
     public bool isBlue;
+    public Vector2 gridPosition;
 }
