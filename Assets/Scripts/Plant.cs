@@ -15,6 +15,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 {
     public GameObject dirtDrippingVFXPrefab;
     public GameObject dirtPlantingVFXPrefab;
+    public Sprite deadPlantSprite;
     public GrowthState growthState = GrowthState.INVALID;
     public bool isRock;
     public PlantData plantData;
@@ -41,8 +42,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             return false;
         }
-        
-        // do some adjacency check for the roots
+
         return true;
     }
 
@@ -59,11 +59,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     
     private void Grow()
     {
-        //spawn a root based on our current plant data growth list
-        //check if we're blocked
-        //check if we've picked up a requirement and mark that in the growth data
-        //check if we're out of growth states
-
         Direction growDirection = plantData.growthPattern[roots.Count];
         Vector2 growFrom = (roots.Count > 0 ? roots[roots.Count - 1].GetComponent<Root>().gridPosition : gridPosition);
         Vector2 growTo = growFrom + GridManager.DIRECTION_TO_OFFSET[growDirection];
@@ -71,14 +66,18 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         var Grid = GridManager.instance;
         if(!Grid.IsValid(growTo) || Grid.IsOccupied(growTo))
         {
-            Debug.Log("Can't grow, ded");
-            Kill();
+            CheckCompletion();
             return;
         }
 
         // Create root at tile
-        var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.Euler(0,0,0));
+        var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.identity);
         GridManager.instance.SetOccupied(growTo, true);
+
+        Tile resourceTile = GridManager.instance.GetTile(growTo);
+        if(resourceTile.isBlue) plantData.requiredBlue--;
+        if(resourceTile.isRed) plantData.requiredRed--;
+
         var rootComp = root.GetComponent<Root>();
         rootComp.gridPosition = growTo;
 
@@ -99,8 +98,20 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
         if(roots.Count >= plantData.growthPattern.Length)
         {
-            Debug.Log("Done growing");
+            CheckCompletion();
+        }
+    }
+
+    void CheckCompletion()
+    {
+        if(plantData.requiredBlue <= 0 && plantData.requiredRed <= 0)
+        {
+            GetComponent<SpriteRenderer>().color = Color.green;
             growthState = GrowthState.COMPLETED;
+        }
+        else
+        {
+            Kill();
         }
     }
 
@@ -111,6 +122,8 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             Destroy(g);
         }
+        GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
     }
 
 

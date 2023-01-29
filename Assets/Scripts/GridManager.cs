@@ -26,6 +26,10 @@ public class GridManager : MonoSingleton<GridManager>
 
     public GameObject tilePrefab;
 
+    public Color redTileColor;
+    public Color blueTileColor;
+    public Color defaultTileColor;
+
     public Tile[,] tiles;
 
     protected override void OnCreation()
@@ -59,12 +63,16 @@ public class GridManager : MonoSingleton<GridManager>
                 if (rand == 8)
                 {
                     t.isBlue = true;
-                    t.GetComponent<SpriteRenderer>().color = Color.blue;
+                    t.GetComponent<SpriteRenderer>().color = blueTileColor;
                 }
-                if (rand == 9)
+                else if (rand == 9)
                 {
                     t.isRed = true;
-                    t.GetComponent<SpriteRenderer>().color = Color.red;
+                    t.GetComponent<SpriteRenderer>().color = redTileColor;
+                }
+                else
+                {
+                    t.GetComponent<SpriteRenderer>().color = defaultTileColor;
                 }
             }
         }
@@ -89,12 +97,16 @@ public class GridManager : MonoSingleton<GridManager>
                     if (pixel.r == 1.0)
                     {
                         t.isRed = true;
-                        t.GetComponent<SpriteRenderer>().color = Color.red;
+                        t.GetComponent<SpriteRenderer>().color = redTileColor;
                     }
                     else if (pixel.b == 1.0)
                     {
                         t.isBlue = true;
-                        t.GetComponent<SpriteRenderer>().color = Color.blue;
+                        t.GetComponent<SpriteRenderer>().color = blueTileColor;
+                    }
+                    else
+                    {
+                        t.GetComponent<SpriteRenderer>().color = defaultTileColor;
                     }
                 }
             }
@@ -148,5 +160,19 @@ public class GridManager : MonoSingleton<GridManager>
     public bool IsValid(Vector2 v)
     {
         return IsValid((int)v.x, (int)v.y);
+    }
+
+    public Tile GetTile(int x, int y)
+    {
+        if(IsValid(x, y))
+        {
+            return tiles[x, y];
+        }
+        throw new System.Exception();
+    }
+
+    public Tile GetTile(Vector2 v)
+    {
+        return GetTile((int)v.x, (int)v.y);
     }
 }
