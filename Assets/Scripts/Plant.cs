@@ -122,6 +122,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         if(plantData.requiredBlue <= 0 && plantData.requiredRed <= 0)
         {
             GetComponent<SpriteRenderer>().color = Color.green;
+            ScoreManager.instance.Score += plantData.scoreComplete;
             growthState = GrowthState.COMPLETED;
         }
         else
@@ -132,6 +133,11 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void Kill()
     {
+        if(growthState != GrowthState.DEAD)
+        {
+            ScoreManager.instance.Score += plantData.scoreDied;
+        }
+
         growthState = GrowthState.DEAD;
         foreach(Root r in roots)
         {

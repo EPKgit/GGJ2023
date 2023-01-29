@@ -21,3 +21,6 @@ MonoBehaviour:
   cantHaveRed: 0
   cantHaveBlue: 0
   isInfinite: 0
+  isRock: 0
+  scoreComplete: 5
+  scoreDied: -2

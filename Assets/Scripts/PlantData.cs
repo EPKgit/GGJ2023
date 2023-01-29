@@ -15,4 +15,6 @@ public class PlantData : ScriptableObject
     public bool cantHaveBlue;
     public bool isInfinite;
     public bool isRock;
+    public int scoreComplete;
+    public int scoreDied;
 }
