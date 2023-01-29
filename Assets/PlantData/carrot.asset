@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
   m_Name: carrot
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 73086793eb5563c47af961910667921b, type: 3}
+  sprite: {fileID: 21300000, guid: b7a1b35e0c2c85c47bceae353c3d3245, type: 3}
   growthPattenSprite: {fileID: 21300000, guid: 2b55a81a9c7f31a4ea294b40bde94c91, type: 3}
   growthNumber: 3
   growthPattern: 020000000200000002000000
