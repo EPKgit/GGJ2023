@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d62deeba9c040784c9598b3b008d9fc1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dirtDrippingVFXPrefab: {fileID: 577691755882806089, guid: 77457e976043913458c370982f3951be, type: 3}
+  dirtPlantingVFXPrefab: {fileID: 4224650466035401655, guid: da1f2057f87ed164d96231ec4342859f, type: 3}
   growthState: 0
   isRock: 0
   plantData: {fileID: 0}

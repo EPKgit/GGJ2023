@@ -113,7 +113,7 @@ public class GridManager : MonoSingleton<GridManager>
 
     public bool IsOccupied(int x, int y)
     {
-        if(x >= 0 && x < width && y >= 0 && y < height)
+        if(IsValid(x, y))
         {
             return tiles[x,y].isOccupied;
         }
@@ -123,6 +123,21 @@ public class GridManager : MonoSingleton<GridManager>
     public bool IsOccupied(Vector2 v)
     {
         return IsOccupied((int)v.x, (int)v.y);
+    }
+
+    public void SetOccupied(int x, int y, bool occupied)
+    {
+        if (IsValid(x, y))
+        {
+            tiles[x, y].isOccupied = occupied;
+            return;
+        }
+        throw new System.Exception();
+    }
+
+    public void SetOccupied(Vector2 v, bool occupied)
+    {
+        SetOccupied((int)v.x, (int)v.y, occupied);
     }
 
     public bool IsValid(int x, int y)

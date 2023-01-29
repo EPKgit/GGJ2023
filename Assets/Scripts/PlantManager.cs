@@ -17,6 +17,7 @@ public class PlantManager : MonoSingleton<PlantManager>
     {
         plants.Add(plant);
         plant.transform.position = GridManager.instance.GetPositionOnGrid(gridPosition);
+        GridManager.instance.SetOccupied(gridPosition, true);
         plant.growthState = GrowthState.GROWING;
         plant.gridPosition = gridPosition;
         HopperManager.instance.TakePlant(plant);

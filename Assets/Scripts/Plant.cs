@@ -14,6 +14,7 @@ public enum GrowthState
 public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public GameObject dirtDrippingVFXPrefab;
+    public GameObject dirtPlantingVFXPrefab;
     public GrowthState growthState = GrowthState.INVALID;
     public bool isRock;
     public PlantData plantData;
@@ -77,6 +78,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
         // Create root at tile
         var root = Instantiate(rootPrefab, Grid.GetPositionOnGrid(growTo), Quaternion.Euler(0,0,0));
+        GridManager.instance.SetOccupied(growTo, true);
         var rootComp = root.GetComponent<Root>();
         rootComp.gridPosition = growTo;
 
@@ -137,11 +139,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     {
         foreach (Transform child in transform)
         {
-            if (child.GetComponent<ParticleSystem>())
-            {
-                Destroy(child.gameObject);
-                break;
-            }
+            child.GetComponent<VFXController>()?.StopParticlePlaying();
         }
         Collider2D[] hits;
         hits = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), ~LayerMask.NameToLayer("Tiles"));
@@ -155,6 +153,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                 {
                     found = true;
                     PlantManager.instance.PlantSeed(this, t.gridPosition);
+                    Instantiate(dirtPlantingVFXPrefab, transform.position, Quaternion.identity, transform);
                 }
                 break;
             }
