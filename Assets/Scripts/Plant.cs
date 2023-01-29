@@ -61,7 +61,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             Destroy(g);
         }
-        Destroy(g);
     }
 
 
