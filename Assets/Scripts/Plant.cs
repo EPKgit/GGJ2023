@@ -17,7 +17,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public GameObject dirtPlantingVFXPrefab;
     public Sprite deadPlantSprite;
     public GrowthState growthState = GrowthState.INVALID;
-    public bool isRock;
     public PlantData plantData;
     public List<Root> roots = new List<Root>();
     public Vector2 gridPosition;

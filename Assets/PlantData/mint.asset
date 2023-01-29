@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
-  m_Name: tomato
+  m_Name: mint
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 53229d2aa93f407428376703bee1da29, type: 3}
-  growthPattenSprite: {fileID: 21300000, guid: 6d07e421f7c10db4f9626b0fc2e053be, type: 3}
+  sprite: {fileID: 21300000, guid: b8cb765ee2c5cd54f930b3db55997d06, type: 3}
+  growthPattenSprite: {fileID: 21300000, guid: 2b55a81a9c7f31a4ea294b40bde94c91, type: 3}
   growthNumber: 0
-  growthPattern: 0000000001000000020000000200000003000000030000000000000000000000
-  requiredRed: 4
+  growthPattern: 01000000
+  requiredRed: 0
   requiredBlue: 1
   cantHaveRed: 0
   cantHaveBlue: 0
-  isInfinite: 0
+  isInfinite: 1

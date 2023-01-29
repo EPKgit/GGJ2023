@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: carrot
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 73086793eb5563c47af961910667921b, type: 3}
+  growthPattenSprite: {fileID: 21300000, guid: 2b55a81a9c7f31a4ea294b40bde94c91, type: 3}
+  growthNumber: 3
   growthPattern: 020000000200000002000000
   requiredRed: 1
   requiredBlue: 1
+  cantHaveRed: 0
+  cantHaveBlue: 0
+  isInfinite: 0

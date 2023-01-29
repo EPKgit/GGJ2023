@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: lettuce
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: fc6e197a5f8a799468dc21009a286164, type: 3}
+  growthPattenSprite: {fileID: 21300000, guid: 2b55a81a9c7f31a4ea294b40bde94c91, type: 3}
+  growthNumber: 5
   growthPattern: 0000000000000000000000000000000000000000
   requiredRed: 1
   requiredBlue: 2
+  cantHaveRed: 0
+  cantHaveBlue: 0
+  isInfinite: 0
+  isRock: 0

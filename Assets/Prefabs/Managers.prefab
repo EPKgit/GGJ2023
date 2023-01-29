@@ -69,7 +69,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8b77c32706af57444a501d6409f638f9, type: 2}
   - {fileID: 11400000, guid: 6e07419f8cccdbc4ca0d9da664a522f2, type: 2}
   - {fileID: 11400000, guid: 4a9f54aae2aec18489bda5ba306e3e3e, type: 2}
+  - {fileID: 11400000, guid: b8d10985d4a26994a9462e85a62e1247, type: 2}
+  - {fileID: 11400000, guid: 50aaceca8f6b4ae4bb74ec9d18455793, type: 2}
   - {fileID: 11400000, guid: dfe22dbc214778243b804868111f9441, type: 2}
+  - {fileID: 11400000, guid: ab5771743fb32544f850105086d88ab0, type: 2}
   - {fileID: 11400000, guid: a8d6b2ab895f8214b8f354925762fc75, type: 2}
 --- !u!114 &8401649163346117154
 MonoBehaviour:
@@ -84,6 +87,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantPrefab: {fileID: 3345987674862078848, guid: ad09484676557024da4c9cb40449b4b2, type: 3}
+  plantUIPrefab: {fileID: 7283544978005697132, guid: d08752263f3055e4c9fb2070f6a23592, type: 3}
+  UICanvas: {fileID: 0}
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
