@@ -4,14 +4,21 @@ using UnityEngine;
 
 public enum Direction
 {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT
+    UP = 0,
+    RIGHT = 1,
+    DOWN = 2,
+    LEFT = 3,
 }
 
 public class GridManager : MonoSingleton<GridManager>
 {
+    public Dictionary<Direction, Vector2> DIRECTION_TO_OFFSET = new Dictionary<Direction, Vector2>()
+    {
+        { Direction.UP,     new Vector2(0, 1) },
+        { Direction.RIGHT,  new Vector2(1, 0) },
+        { Direction.DOWN,   new Vector2(0, -1) },
+        { Direction.LEFT,   new Vector2(-1, 0) },
+    };
     const int width = 10;
     const int height = 10;
 
