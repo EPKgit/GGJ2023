@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoSingleton<TurnManager>
 {
-    public const int ACTIONS_PER_TURN = 2;
+    public const int ACTIONS_PER_TURN = 1;
 
     public Text text;
     public int ActionsTakenInTurn

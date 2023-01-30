@@ -122,7 +122,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     {
         if(plantData.requiredBlue <= 0 && plantData.requiredRed <= 0)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
             growthState = GrowthState.COMPLETED;
             harvestableVFXPrefab = Instantiate(harvestableVFXPrefab, transform.position, Quaternion.identity);
         }
@@ -141,7 +140,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
         growthState = GrowthState.DEAD;
         CleanupRoots();
-        GetComponent<SpriteRenderer>().color = Color.white;
         GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
     }
 
@@ -166,6 +164,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             GridManager.instance.SetOccupied(gridPosition, false);
             harvestableVFXPrefab.GetComponent<VFXController>().StopParticlePlaying();
             Destroy(gameObject);
+            TurnManager.instance.ActionTaken();
         }
     }
     private Vector3 startPosition;
