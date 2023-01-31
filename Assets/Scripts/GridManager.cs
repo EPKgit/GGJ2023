@@ -22,7 +22,7 @@ public class GridManager : MonoSingleton<GridManager>
     int width = 15;
     int height = 10;
 
-    public Texture2D mapImage;
+    public LevelData levelData;
 
     public GameObject tilePrefab;
 
@@ -40,12 +40,15 @@ public class GridManager : MonoSingleton<GridManager>
 
     void Generate()
     {
-        if(mapImage == null)
+        if(levelData == null)
         {
             GenerateRandom();
-            return;
         }
-        GenerateFromImage();
+        else
+        {
+            GenerateFromImage();
+        }
+        HopperManager.instance.Setup(levelData);
     }
 
     void GenerateRandom()
@@ -80,6 +83,7 @@ public class GridManager : MonoSingleton<GridManager>
 
     void GenerateFromImage()
     {
+        Texture2D mapImage = levelData.mapImage;
         GameObject g = new GameObject("TileParent");
         width = mapImage.width;
         height = mapImage.height;

@@ -1967,7 +1967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8401649163346117154, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
       propertyPath: isDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8401649163346117154, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
       propertyPath: UICanvas
@@ -2021,5 +2021,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 8401649163346117159, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: levelData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e2330d93b07e66499020589bb6a8089, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
