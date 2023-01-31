@@ -219,7 +219,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                         if (plantData.cantHaveBlue)
                         {
                             Kill();
-                            return;
                         }
                         plantData.requiredBlue--;
                     }
@@ -228,7 +227,6 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                         if (plantData.cantHaveRed)
                         {
                             Kill();
-                            return;
                         }
                         plantData.requiredRed--;
                     }
