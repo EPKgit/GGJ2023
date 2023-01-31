@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HopperManager : MonoSingleton<HopperManager>
 {
+    public bool isDebug = false;
     public GameObject plantPrefab;
     public GameObject plantUIPrefab;
 
@@ -39,6 +40,19 @@ public class HopperManager : MonoSingleton<HopperManager>
             Destroy(spawnedObjects[x].Item2);
         }
         spawnedObjects.Clear();
+        if(isDebug)
+        {
+            var plantData = PlantManager.instance.GetAllPlantData();
+            for (int x = 0; x < spawnPoints.Length; ++x)
+            {
+                Plant p = Instantiate(plantPrefab, spawnPoints[x].transform.position, Quaternion.identity).GetComponent<Plant>();
+                p.SetPlantData(plantData[x]);
+                PlantRequirementUI ui = Instantiate(plantUIPrefab, spawnPoints[x].transform.position, Quaternion.identity, UICanvas.transform).GetComponent<PlantRequirementUI>();
+                ui.Setup(p);
+                spawnedObjects.Add((p.gameObject, ui.gameObject));
+            }
+            return;
+        }
         foreach (Transform t in spawnPoints)
         {
             Plant p = Instantiate(plantPrefab, t.transform.position, Quaternion.identity).GetComponent<Plant>();

@@ -13,6 +13,16 @@ public class PlantManager : MonoSingleton<PlantManager>
         return ScriptableObject.Instantiate(possiblePlants[rand]);
     }
 
+    public List<PlantData> GetAllPlantData()
+    {
+        List<PlantData> ret = new List<PlantData>();
+        foreach(PlantData pd in possiblePlants)
+        {
+            ret.Add(ScriptableObject.Instantiate(pd));
+        }
+        return ret;
+    }
+
     public void PlantSeed(Plant plant, Vector2 gridPosition)
     {
         plant.transform.position = GridManager.instance.GetPositionOnGrid(gridPosition);
