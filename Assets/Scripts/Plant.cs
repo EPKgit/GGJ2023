@@ -16,6 +16,8 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public GameObject dirtDrippingVFXPrefab;
     public GameObject dirtPlantingVFXPrefab;
     public GameObject harvestableVFXPrefab;
+    public GameObject harvestingVFXPrefab;
+    public GameObject deadPlantVFXPrefab;
     public Sprite deadPlantSprite;
     public GrowthState growthState = GrowthState.INVALID;
     public PlantData plantData;
@@ -133,14 +135,16 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void Kill()
     {
-        if(growthState != GrowthState.DEAD)
+        if(growthState == GrowthState.DEAD)
         {
-            ScoreManager.instance.Score += plantData.scoreDied;
+            return;
         }
 
+        ScoreManager.instance.Score += plantData.scoreDied;
         growthState = GrowthState.DEAD;
         CleanupRoots();
         GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
+        deadPlantVFXPrefab = Instantiate(deadPlantVFXPrefab, transform.position, Quaternion.identity);
     }
 
     void CleanupRoots()
@@ -165,6 +169,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             harvestableVFXPrefab.GetComponent<VFXController>().StopParticlePlaying();
             Destroy(gameObject);
             TurnManager.instance.ActionTaken();
+            Instantiate(harvestingVFXPrefab, transform.position, Quaternion.identity).GetComponent<VFXController>().StopParticlePlaying();
         }
     }
     private Vector3 startPosition;

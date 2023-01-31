@@ -127,6 +127,8 @@ MonoBehaviour:
   dirtDrippingVFXPrefab: {fileID: 577691755882806089, guid: 77457e976043913458c370982f3951be, type: 3}
   dirtPlantingVFXPrefab: {fileID: 4224650466035401655, guid: da1f2057f87ed164d96231ec4342859f, type: 3}
   harvestableVFXPrefab: {fileID: 7334244246687730161, guid: 5daffaa3d20110e469ff7f9cd8473ec2, type: 3}
+  harvestingVFXPrefab: {fileID: 124996760722362403, guid: 541afb4a905a3c640b6cd3892146d68e, type: 3}
+  deadPlantVFXPrefab: {fileID: 7648835173773662183, guid: cd3ee41ad1e95f3499913fa4e1968caf, type: 3}
   deadPlantSprite: {fileID: 21300000, guid: d2f917c7bee146a478e485ea01405260, type: 3}
   growthState: 0
   plantData: {fileID: 0}
