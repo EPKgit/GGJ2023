@@ -233,6 +233,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                         plantData.requiredRed--;
                     }
                     Instantiate(dirtPlantingVFXPrefab, transform.position, Quaternion.identity, transform);
+                    TurnManager.instance.ActionTaken();
                 }
                 break;
             }

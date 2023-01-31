@@ -24,7 +24,6 @@ public class PlantManager : MonoSingleton<PlantManager>
         }
         plant.gridPosition = gridPosition;
         HopperManager.instance.TakePlant(plant);
-        TurnManager.instance.ActionTaken();
     }
 
     public void RemovePlant(Plant plant)
