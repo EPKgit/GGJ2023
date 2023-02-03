@@ -87,6 +87,7 @@ public class GridManager : MonoSingleton<GridManager>
         GameObject g = new GameObject("TileParent");
         width = mapImage.width;
         height = mapImage.height;
+        tiles = new Tile[width, height];
         for (int x = 0; x < width; ++x)
         {
             for (int y = 0; y < height; ++y)
@@ -96,14 +97,14 @@ public class GridManager : MonoSingleton<GridManager>
                 t.gridPosition = new Vector2(x, y);
                 tiles[x, y] = t;
                 var pixel = mapImage.GetPixel(x, y);
-                if (pixel.a == 1.0)
+                if (pixel.a >= 0.9)
                 {
-                    if (pixel.r == 1.0)
+                    if (pixel.r >= 0.9)
                     {
                         t.isRed = true;
                         t.GetComponent<SpriteRenderer>().color = redTileColor;
                     }
-                    else if (pixel.b == 1.0)
+                    else if (pixel.b >= 0.9)
                     {
                         t.isBlue = true;
                         t.GetComponent<SpriteRenderer>().color = blueTileColor;
