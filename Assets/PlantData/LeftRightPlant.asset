@@ -18,7 +18,7 @@ MonoBehaviour:
   roots:
   - growthPattern: 0300000003000000
   - growthPattern: 0100000001000000
-  requiredRed: -2
+  requiredRed: 2
   requiredBlue: 0
   cantHaveRed: 0
   cantHaveBlue: 1

@@ -15,7 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2e862eb11f94c8b46aa53a3b738e16fc, type: 3}
   growthPattenSprite: {fileID: 21300000, guid: 2b55a81a9c7f31a4ea294b40bde94c91, type: 3}
   growthNumber: 5
-  growthPattern: 0000000000000000000000000000000000000000
   roots:
   - growthPattern: 0000000000000000000000000000000000000000
   requiredRed: 1
