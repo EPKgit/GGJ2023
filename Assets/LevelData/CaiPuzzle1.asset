@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903ebd20e2f7c7f46986559ad1536a56, type: 3}
+  m_Name: CaiPuzzle1
+  m_EditorClassIdentifier: 
+  mapImage: {fileID: 2800000, guid: 56ca098fef5ff60499d8366041585aba, type: 3}
+  hopperOrder:
+  - {fileID: 11400000, guid: 50aaceca8f6b4ae4bb74ec9d18455793, type: 2}
+  - {fileID: 11400000, guid: 4a9f54aae2aec18489bda5ba306e3e3e, type: 2}
+  - {fileID: 11400000, guid: 8aca55714d44bc649b1d54ac714c3b58, type: 2}
+  - {fileID: 11400000, guid: b8d10985d4a26994a9462e85a62e1247, type: 2}
+  - {fileID: 11400000, guid: 9c7a4e256fb791843b0d00545e0b611f, type: 2}
+  - {fileID: 11400000, guid: 18407c97dfd5b474c86c4c4274d146c4, type: 2}
+  hopperNum: 6

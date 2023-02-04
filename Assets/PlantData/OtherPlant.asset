@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acf98815499f140a066750091081f5, type: 3}
   m_Name: OtherPlant
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  growthPattenSprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: aeeae3bef2a905e408c4da314c3271c2, type: 3}
+  growthPattenSprite: {fileID: 21300000, guid: fab2728439ac8a04ea5d44e1f63b0570, type: 3}
   growthNumber: 0
   roots:
   - growthPattern: 0300000002000000
   - growthPattern: 0200000002000000
   - growthPattern: 0100000002000000
-  requiredRed: 2
+  requiredRed: -1
   requiredBlue: 0
   cantHaveRed: 0
   cantHaveBlue: 1
