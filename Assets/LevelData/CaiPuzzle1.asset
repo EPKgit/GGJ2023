@@ -20,4 +20,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8d10985d4a26994a9462e85a62e1247, type: 2}
   - {fileID: 11400000, guid: 9c7a4e256fb791843b0d00545e0b611f, type: 2}
   - {fileID: 11400000, guid: 18407c97dfd5b474c86c4c4274d146c4, type: 2}
-  hopperNum: 3
+  hopperNum: 6

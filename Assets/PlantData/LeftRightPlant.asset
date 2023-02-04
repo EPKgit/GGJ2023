@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LeftRightPlant
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d0f22d4149ae4e644a7ba1e58e69da4c, type: 3}
-  growthPattenSprite: {fileID: 21300000, guid: dd6d60f481d241843af3be3e8f75b093, type: 3}
+  growthPattenSprite: {fileID: 21300000, guid: 08531fdd7540c2a41bc4fc3374dcee77, type: 3}
   growthNumber: 2
   roots:
   - growthPattern: 0300000003000000
