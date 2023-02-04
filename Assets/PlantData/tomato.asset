@@ -16,6 +16,8 @@ MonoBehaviour:
   growthPattenSprite: {fileID: 21300000, guid: 6d07e421f7c10db4f9626b0fc2e053be, type: 3}
   growthNumber: 0
   growthPattern: 0000000001000000020000000200000003000000030000000000000000000000
+  roots:
+  - growthPattern: 0000000001000000020000000200000003000000030000000000000000000000
   requiredRed: 4
   requiredBlue: 1
   cantHaveRed: 0

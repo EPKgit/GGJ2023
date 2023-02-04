@@ -43,7 +43,7 @@ public class PlantRequirementUI : MonoBehaviour
         {
             float deg = 0;
             Text text = null;
-            switch (data.growthPattern[0])
+            switch (data.roots[0].growthPattern[0])
             {
                 case Direction.DOWN: deg = 180; text = pathTextRight; break;
                 case Direction.RIGHT: deg = 270; text = pathTextTop; break;

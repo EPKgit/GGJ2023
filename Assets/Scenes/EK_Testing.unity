@@ -1965,6 +1965,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8401649163346117153, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: possiblePlants.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401649163346117153, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: possiblePlants.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c7a4e256fb791843b0d00545e0b611f, type: 2}
+    - target: {fileID: 8401649163346117153, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: possiblePlants.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a60812a60aac241ba06cd63c3b33fc, type: 2}
+    - target: {fileID: 8401649163346117153, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: possiblePlants.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: 18407c97dfd5b474c86c4c4274d146c4, type: 2}
+    - target: {fileID: 8401649163346117153, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
+      propertyPath: possiblePlants.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8aca55714d44bc649b1d54ac714c3b58, type: 2}
     - target: {fileID: 8401649163346117154, guid: 76c3f68a4aada534aa1e11af8e39f301, type: 3}
       propertyPath: isDebug
       value: 0
