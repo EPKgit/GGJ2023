@@ -126,6 +126,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             growthState = GrowthState.COMPLETED;
             harvestableVFXPrefab = Instantiate(harvestableVFXPrefab, transform.position, Quaternion.identity);
+            AudioManager.instance.growSuccessAudio.Play();
         }
         else
         {
@@ -145,6 +146,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         CleanupRoots();
         GetComponent<SpriteRenderer>().sprite = deadPlantSprite;
         deadPlantVFXPrefab = Instantiate(deadPlantVFXPrefab, transform.position, Quaternion.identity);
+        AudioManager.instance.dieAudio.Play();
     }
 
     void CleanupRoots()
@@ -159,6 +161,13 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
 #region MOUSE_EVENTS
 
+    private void OnMouseEnter() {
+        if(startPosition==Vector3.zero||this.transform.position == startPosition)
+        {
+            AudioManager.instance.hoverAudio.Play();
+        }
+    }
+
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (growthState == GrowthState.COMPLETED)
@@ -170,6 +179,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             Destroy(gameObject);
             TurnManager.instance.ActionTaken();
             Instantiate(harvestingVFXPrefab, transform.position, Quaternion.identity).GetComponent<VFXController>().StopParticlePlaying();
+            AudioManager.instance.harvestAudio.Play();
         }
     }
     private Vector3 startPosition;
@@ -178,6 +188,7 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     {
         if (growthState == GrowthState.UNPLANTED || growthState == GrowthState.INVALID) //we can only move unplanted plants
         {
+            AudioManager.instance.pickupAudio.Play();
             startPosition = this.transform.position;
             Instantiate(dirtDrippingVFXPrefab, transform.position, Quaternion.identity, transform);
             return;
@@ -232,12 +243,16 @@ public class Plant : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                     }
                     Instantiate(dirtPlantingVFXPrefab, transform.position, Quaternion.identity, transform);
                     TurnManager.instance.ActionTaken();
+                    AudioManager.instance.dropAudio.Play();
+                } else {
+                    AudioManager.instance.cannotAudio.Play();
                 }
                 break;
             }
         }
         if (!found)
         {
+            AudioManager.instance.cannotAudio.Play();
             this.transform.position = startPosition;
         }
     }
