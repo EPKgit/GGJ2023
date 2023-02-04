@@ -17,8 +17,8 @@ MonoBehaviour:
   growthNumber: 0
   growthPattern: 01000000
   requiredRed: 0
-  requiredBlue: 1
-  cantHaveRed: 0
+  requiredBlue: 2
+  cantHaveRed: 1
   cantHaveBlue: 0
   isInfinite: 1
   isRock: 0
